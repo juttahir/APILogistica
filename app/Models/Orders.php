@@ -39,8 +39,9 @@ abstract class Orders extends Model {
      * @param string $name
      * @return string|null
      */
-    public static function type(string $name):? string {
-        return (array_search($name,self::TYPES)??null);
+    public static function type(string $name): ?string {
+        $type = Orders::type('TYPES');
+        return array_key_exists($name, self::TYPES) ? self::TYPES[$name] : null;
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\DataTransferObjects;
+namespace App\Models\DTOs;
 
 class OrderItemDto {
 

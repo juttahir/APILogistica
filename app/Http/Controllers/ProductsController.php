@@ -80,7 +80,7 @@ class ProductsController extends Controller
 
     public function listarProdutos()
     {
-        $produtos = Products::all();
+        $produtos = Products::get();
 
         if($produtos){
             return response()->json($produtos, 200);

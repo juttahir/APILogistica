@@ -23,7 +23,7 @@ Route::get('/ping', function (Request $request) {
     return response()->json(['200'],200);
 });
 
-Route::get('/pedido/{id}', [OrdersController::class, 'pedido']);
+Route::get('/pedido/{id}', [OrdersController::class, 'pedidos']);
 
 Route::get('/produto/{title}', [ProductsController::class, 'produto']);
 Route::get('/produto', [ProductsController::class, 'listarProdutos']);

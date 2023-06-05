@@ -9,11 +9,11 @@
         "/api/pedido/{Pedido}": {
             "get": {
                 "tags": [
-                    "Pedidos"
+                    "Ordem de Pedidos"
                 ],
-                "summary": "Status do pedido",
+                "summary": "Status do pedido de entrada",
                 "description": "Retorna o status atual do pedido",
-                "operationId": "a43a6a0888b2085e05f06d12cb67a3c8",
+                "operationId": "9c5036664549738c3502892762fd3178",
                 "parameters": [
                     {
                         "name": "Pedido",

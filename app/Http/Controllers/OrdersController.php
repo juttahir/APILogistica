@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OrderItemExits;
-use Illuminate\Http\Request;
-use App\Models\Orders2;
+use App\Providers\OrdersServiceProvider;
 
 class OrdersController extends Controller
 {
     /**
      * @OA\Get(
-     *     tags={"Pedidos"},
+     *     tags={"Ordem de Pedidos"},
      *     path="/api/pedido/{Pedido}",
-     *     summary="Status do pedido",
+     *     summary="Status do pedido de entrada",
      *     description="Retorna o status atual do pedido",
      *     @OA\Parameter(
      *         name="Pedido",
@@ -35,22 +33,11 @@ class OrdersController extends Controller
      * )
      */
 
-    public function pedido(int $id)
+    public function pedidos($id)
     {
-        $pedido = Orders2::where('id', $id)->first();
+        $ordersServiceProvider = new OrdersServiceProvider($id);
+        $response = $ordersServiceProvider->getPedido($id);
 
-        if($pedido){
-            return response()->json([
-                'sistema_parceiro'=> $pedido->third_system,
-                'id_do_sistema'=> $pedido->third_system_id,
-                'type'=> $pedido->type,
-                'status'=> $pedido->status,
-                'transporte'=> $pedido->transport_id,
-                'criado'=> $pedido->created_at,
-                'alterado'=> $pedido->updated_at,
-            ], 200);
-        } else{
-            return response()->json(['message' => 'Pedido não encontrado'], 404);
-        }
+        return $response;
     }
 }

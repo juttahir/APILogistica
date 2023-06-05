@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Orders;
 
-class OrderServices extends Model {
+class OrderServices extends Orders {
     use HasFactory;
 
     protected $table = "order_services";
