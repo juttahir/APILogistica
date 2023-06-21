@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\OfficesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,5 +27,10 @@ Route::get('/ping', function (Request $request) {
 
 Route::get('/pedido/{id}', [OrdersController::class, 'pedidos']);
 
+Route::get('/unidade', [OfficesController::class, 'getAll']);
+Route::get('/unidade/{name}', [OfficesController::class, 'getOffices']);
+
 Route::get('/produto/{title}', [ProductsController::class, 'produto']);
-Route::get('/produto', [ProductsController::class, 'listarProdutos']);
+Route::get('/produto/{isbn}/codigo', [ProductsController::class, 'getISBN']);
+Route::put('/produto/{isbn}', [ProductsController::class, 'update']);
+Route::post('/produto', [ProductsController::class, 'criarProduto']);

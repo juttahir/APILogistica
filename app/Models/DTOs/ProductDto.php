@@ -4,6 +4,7 @@ namespace App\Models\DTOs;
 
 class ProductDto {
 
+    private ?int $id;
     private string $isbn;
     private string $title;
     private int $height;
@@ -14,32 +15,29 @@ class ProductDto {
     private ?string $category;
     private ?string $synopsis;
     private ?string $cover;
-    private ?int $id;
 
     public function __construct(
         string $isbn,
         string $title,
-        int $height,
-        int $width,
-        int $length,
-        int $weight,
-        string $publisher = null,
-        string $category = null,
-        string $synopsis = null,
-        string $cover = null,
-        int $id = null
+        ?string $publisher = null,
+        ?string $category = null,
+        ?string $synopsis = null,
+        ?int $height,
+        ?int $width,
+        ?int $length,
+        ?int $weight,
+        ?string $cover = null
     ) {
         $this->isbn = $isbn;
         $this->title = $title;
+        $this->publisher = $publisher;
+        $this->category = $category;
+        $this->synopsis = $synopsis;
         $this->height = $height;
         $this->width = $width;
         $this->length = $length;
         $this->weight = $weight;
-        $this->publisher = $publisher;
-        $this->category = $category;
-        $this->synopsis = $synopsis;
         $this->cover = $cover;
-        $this->id = $id;
     }
 
     /**

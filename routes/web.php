@@ -1,5 +1,6 @@
 <?php
 
+use App\Actions\CreateUser;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,11 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/swagger', function () {
-    return redirect('/swagger-ui');
+Route::get('/', function(){
+    return Redirect::to('/api/documentation');
 });
 

@@ -2,21 +2,89 @@
     "openapi": "3.0.0",
     "info": {
         "title": "API BB Serviços 1.0.0",
-        "description": "A documentação BB Serviços, tem como finalidade facilitar a utilização dos endpoints para consumo de APIs externas.",
+        "description": "As documentações e APIs BB Serviços, tem como finalidade a integração em sistemas parceiros.",
+        "contact": {
+            "email": "contato@bbservicos.com.br"
+        },
+        "license": {
+            "name": "EMS BB Serviços",
+            "url": "https://app.bbems.com.br"
+        },
         "version": "1.0.0"
     },
     "paths": {
-        "/api/pedido/{Pedido}": {
+        "/api/unidade": {
+            "get": {
+                "tags": [
+                    "Unidades"
+                ],
+                "summary": "Unidades de distribuição {GETALL}",
+                "description": "Busque por todas as unidades de distribuição cadastrada",
+                "operationId": "62b649d153b2748fbb6f266f2f4929f9",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/api/unidade/{unidade}": {
+            "get": {
+                "tags": [
+                    "Unidades"
+                ],
+                "summary": "Unidades de distribuição",
+                "description": "Busque por unidade de distribuição cadastrada {string}",
+                "operationId": "3c9baed24c0d5c0e380ed7d8bcf6c47b",
+                "parameters": [
+                    {
+                        "name": "unidade",
+                        "in": "path",
+                        "description": "Nome da unidade, Exemplo: CD Raposo",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "unidade": {
+                                            "description": "Nome da unidade",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/api/pedido/{pedido}": {
             "get": {
                 "tags": [
                     "Ordem de Pedidos"
                 ],
-                "summary": "Status do pedido de entrada",
+                "summary": "Status do pedido",
                 "description": "Retorna o status atual do pedido",
-                "operationId": "9c5036664549738c3502892762fd3178",
+                "operationId": "1b428fcbeb5fbb346d96d5816e00a566",
                 "parameters": [
                     {
-                        "name": "Pedido",
+                        "name": "pedido",
                         "in": "path",
                         "description": "ID do pedido",
                         "required": true,
@@ -36,14 +104,14 @@
                 }
             }
         },
-        "/api/produtos/{produto}": {
+        "/api/produto/{produto}": {
             "get": {
                 "tags": [
                     "Produtos"
                 ],
                 "summary": "Produtos em estoque",
-                "description": "Retorna o produto armazenado em nossos estoques",
-                "operationId": "bba1217799c6fa59406a232707b7b0f8",
+                "description": "Busque por um ou mais títulos de produtos armazenados em nossos estoques (string)",
+                "operationId": "45df2e87b79028974bcd6fc7414dc15d",
                 "parameters": [
                     {
                         "name": "produto",
@@ -79,33 +147,293 @@
                 }
             }
         },
-        "/api/produtos": {
+        "/api/produto/{isbn}/codigo": {
             "get": {
                 "tags": [
                     "Produtos"
                 ],
-                "summary": "Listar todos os produtos",
-                "description": "Retorna todos os produtos armazenados em nossos estoques",
-                "operationId": "fb7e33cc3ffe3f09dcd888dd0a968052",
+                "summary": "Produtos em estoque",
+                "description": "Busque por um ISBN {código de barras} armazenado em nossos estoques ()",
+                "operationId": "aafc3152317a9fd0d85e500dcfb66ef2",
+                "parameters": [
+                    {
+                        "name": "isbn",
+                        "in": "path",
+                        "description": "ISBN do produto",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "properties": {
-                                            "produto": {
-                                                "description": "Nome do produto",
-                                                "type": "string"
-                                            }
-                                        },
-                                        "type": "object"
-                                    }
+                                    "properties": {
+                                        "isbn": {
+                                            "description": "ISBN do produto",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/api/produto/": {
+            "post": {
+                "tags": [
+                    "Produtos"
+                ],
+                "summary": "Inserir um novo produto",
+                "description": "Cadastre um novo produto em nosso estoque",
+                "operationId": "43c492edca222cf0b5e92134083fe19d",
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "isbn",
+                                    "title",
+                                    "publisher",
+                                    "category",
+                                    "synopsis",
+                                    "height",
+                                    "width",
+                                    "lenght",
+                                    "weight"
+                                ],
+                                "properties": {
+                                    "isbn": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "Código de barras"
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Título do produto"
+                                    },
+                                    "publisher": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Editora"
+                                    },
+                                    "category": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Livros"
+                                    },
+                                    "synopsis": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Uma colcha de retalhos da vida baiana. Talvez seja esta a melhor síntese deste romance. Zulmira é o retrato-símbolo da baianidade. Baianidade de uma gente que transcende o simplesmente viver por viver; que passa pelas pedras e espinhos da vida sem se arranhar; que irradia calor humano e encanto, apesar das vicissitudes, das armadilhas do cotidiano. Zulmira é o encanto e a magia, a sabedoria e a alegria, o amor transbordando, superando, transformando."
+                                    },
+                                    "height": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "20"
+                                    },
+                                    "width": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "220"
+                                    },
+                                    "length": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "280"
+                                    },
+                                    "weight": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "928"
+                                    },
+                                    "cover": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "products/HRgjbRPWME6ci6cuObIWitItGDLoLahOjqM7ME6l.jpg"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "200"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/api/produto/{isbn}": {
+            "put": {
+                "tags": [
+                    "Produtos"
+                ],
+                "summary": "Atualiza um produto",
+                "description": "Atualize um produto existente em nosso estoque",
+                "operationId": "99cb2002058a0fce99354941081bb5fd",
+                "parameters": [
+                    {
+                        "name": "isbn",
+                        "in": "path",
+                        "description": "Exemplo: 9786586539707",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "publisher",
+                                    "category",
+                                    "synopsis",
+                                    "height",
+                                    "width",
+                                    "lenght",
+                                    "weight"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Título do produto"
+                                    },
+                                    "publisher": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Editora"
+                                    },
+                                    "category": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Livros"
+                                    },
+                                    "synopsis": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Descrição do produto"
+                                    },
+                                    "height": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "20 (em mm)"
+                                    },
+                                    "width": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "220 (em mm)"
+                                    },
+                                    "length": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "280 (em mm)"
+                                    },
+                                    "weight": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "928 (em mm)"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "title": {
+                                            "type": "string",
+                                            "format": "string",
+                                            "example": "Bibilia Sagrada"
+                                        },
+                                        "publisher": {
+                                            "type": "string",
+                                            "format": "string",
+                                            "example": "Obras católicas"
+                                        },
+                                        "category": {
+                                            "type": "string",
+                                            "format": "string",
+                                            "example": "Livros"
+                                        },
+                                        "synopsis": {
+                                            "type": "string",
+                                            "format": "string",
+                                            "example": "Bíblia Sagrada, edição Almeida Corrigida Fiel, produzida pela Sociedade Bíblica Trinitariana do Brasil e com uma belíssima arte de capa."
+                                        },
+                                        "height": {
+                                            "type": "integer",
+                                            "format": "integer",
+                                            "example": "25"
+                                        },
+                                        "width": {
+                                            "type": "integer",
+                                            "format": "integer",
+                                            "example": "134"
+                                        },
+                                        "length": {
+                                            "type": "integer",
+                                            "format": "integer",
+                                            "example": "200"
+                                        },
+                                        "weight": {
+                                            "type": "integer",
+                                            "format": "integer",
+                                            "example": "615"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found"
                     }
                 }
             }
