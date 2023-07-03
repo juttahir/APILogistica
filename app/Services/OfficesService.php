@@ -40,7 +40,7 @@ class OfficesService
      *     @OA\Parameter(
      *         name="unidade",
      *         in="path",
-     *         description="Nome da unidade, Exemplo: CD Raposo",
+     *         description="Nome da unidade, Exemplo: CD Butantã",
      *         required=true,
      *         @OA\Schema(
      *             type="string",

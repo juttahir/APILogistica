@@ -5,7 +5,7 @@ return [
     'documentations' => [
         'default' => [
             'api' => [
-                'title' => 'API BB Servicos',
+                'title' => 'API Logistica',
             ],
 
             'routes' => [

@@ -1,14 +1,14 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "API BB Serviços 1.0.0",
-        "description": "As documentações e APIs BB Serviços, tem como finalidade a integração em sistemas parceiros.",
+        "title": "API Logistica 1.0.0",
+        "description": "As documentações e APIs Logistica, tem como finalidade a integração em sistemas parceiros.",
         "contact": {
-            "email": "contato@bbservicos.com.br"
+            "email": "contato@contato.com.br"
         },
         "license": {
-            "name": "EMS BB Serviços",
-            "url": "https://app.bbems.com.br"
+            "name": "EMS Logistica",
+            "url": "https://pudim.com.br"
         },
         "version": "1.0.0"
     },
@@ -43,7 +43,7 @@
                     {
                         "name": "unidade",
                         "in": "path",
-                        "description": "Nome da unidade, Exemplo: CD Raposo",
+                        "description": "Nome da unidade, Exemplo: CD Butantã",
                         "required": true,
                         "schema": {
                             "type": "string",
